@@ -1,0 +1,15 @@
+{
+  "name": "showreel-studio",
+  "description": "한국어 모션그래픽 발표 영상 하네스 (Claude Code 플러그인)",
+  "owner": {
+    "name": "YuJin"
+  },
+  "plugins": [
+    {
+      "name": "showreel",
+      "source": "./",
+      "description": "조사 내용·보고서를 한국어 모션그래픽 발표 영상으로 만드는 하네스 (스킬 4개, 에이전트 3개)",
+      "version": "0.1.0"
+    }
+  ]
+}

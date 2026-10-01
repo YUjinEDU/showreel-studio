@@ -1,0 +1,74 @@
+<title>{{TITLE}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- FONTS: keep in sync with fonts.faces in reel.js -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@500;700&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: one 16:9 stage, a transport bar and a chapter strip. Page chrome colours: set from the reel's theme. */
+:root{
+  --ink:#14161A; --ink-2:#1D2025; --line:#30343B; --paper:#F4F2EC; --muted:#A29E95; --accent:#F6C400; --accent-2:#1B4B9E;
+  --f-disp:"Black Han Sans","Noto Sans KR",sans-serif;
+  --f-body:"IBM Plex Sans KR","Noto Sans KR",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+html,body{background:var(--ink);color:var(--paper)}
+body{font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:28px 48px;display:grid;gap:16px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;color:var(--accent)}
+h1{font-family:var(--f-disp);font-weight:400;font-size:clamp(28px,4.2vw,46px);line-height:1.1;margin:6px 0 0;text-wrap:balance}
+.meta{font-family:var(--f-mono);font-size:12px;color:var(--muted);letter-spacing:.06em}
+.stage{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;cursor:pointer;outline:none}
+.stage:focus-visible{box-shadow:0 0 0 3px var(--accent)}
+canvas{display:block;width:100%;height:100%}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+button{font:600 14px var(--f-body);color:var(--ink);background:var(--accent);border:0;padding:9px 16px;cursor:pointer;border-radius:2px}
+button:hover{filter:brightness(1.08)}
+button:disabled{opacity:.5;cursor:default}
+button.ghost{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1px var(--line)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input[type=range]{flex:1 1 240px;min-width:0;accent-color:var(--accent)}
+.tc{font:500 13px var(--f-mono);font-variant-numeric:tabular-nums;color:var(--muted);min-width:19ch;text-align:right}
+.chapters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.chapters button{background:var(--ink-2);color:var(--paper);text-align:left;padding:10px 12px;border-radius:0;display:grid;gap:2px;font-weight:500}
+.chapters button .n{font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.chapters button[aria-current="true"]{background:var(--accent-2)}
+.chapters button[aria-current="true"] .n{color:var(--accent)}
+.note{font-size:13px;color:var(--muted);max-width:72ch;margin:0}
+.keys{font-size:12px;color:var(--muted);margin:0}
+kbd{font:500 11px var(--f-mono);color:var(--paper);border:1px solid var(--line);border-bottom-width:2px;border-radius:3px;padding:1px 5px}
+body.presenting .keys{color:var(--accent)}
+.stage:fullscreen{width:100vw;height:100vh;aspect-ratio:auto;background:#000;cursor:none}
+.stage:fullscreen canvas{object-fit:contain}
+.note code{font-family:var(--f-mono);font-size:12px;color:var(--paper);overflow-wrap:anywhere}
+</style>
+
+<div class="wrap">
+  <div class="head">
+    <div>
+      <div class="eyebrow">{{EYEBROW}}</div>
+      <h1>{{TITLE}}</h1>
+    </div>
+    <div class="meta">{{META}}</div>
+  </div>
+  <div class="stage" id="stage" tabindex="0" role="button" aria-label="쇼릴 영상. 클릭하거나 스페이스 키로 재생과 일시정지를 바꾼다">
+    <canvas id="reel" width="1920" height="1080"></canvas>
+  </div>
+  <div class="bar">
+    <button id="play" type="button" aria-pressed="false">재생</button>
+    <button id="restart" class="ghost" type="button">처음부터</button>
+    <button id="sound" class="ghost" type="button" aria-pressed="false">소리 켜기</button>
+    <button id="present" class="ghost" type="button" aria-pressed="false">발표 모드</button>
+    <button id="full" class="ghost" type="button">전체 화면</button>
+    <input id="scrub" type="range" min="0" max="3000" step="1" value="0" aria-label="재생 위치">
+    <span class="tc" id="tc">00:00.00 / 00:30.00</span>
+  </div>
+  <p class="keys">발표 모드: 장면이 끝나면 멈춘다 · <kbd>→</kbd> <kbd>PageDown</kbd> 클릭 = 다음 · <kbd>←</kbd> = 이전 · <kbd>F</kbd> = 전체 화면 · <kbd>P</kbd> = 발표 모드 켜고 끄기</p>
+  <div class="chapters" id="chapters"></div>
+  <p class="note">{{NOTE}}</p>
+</div>
+
+<script src="engine.js"></script>
+<!-- 3~5분 숏동영상: 장별 파일(scenes/common.js, scenes/ch1.js, …)의 script 태그를 여기에 순서대로 넣는다 -->
+<script src="reel.js"></script>

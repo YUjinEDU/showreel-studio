@@ -1,0 +1,8 @@
+{
+  "name": "showreel",
+  "version": "0.1.0",
+  "description": "조사 내용·보고서를 한국어 모션그래픽 발표 영상(2분 발표 보조, 30초 요약, 3~5분 자막형 숏동영상)으로 만드는 Claude Code 하네스. 스토리보드 → 승인 → 캔버스 구현 → 자동 레이아웃 검사·검토 → MP4·웹 발표 모드까지.",
+  "author": { "name": "YuJin" },
+  "license": "MIT",
+  "keywords": ["showreel", "motion-graphics", "presentation", "video", "korean", "harness"]
+}

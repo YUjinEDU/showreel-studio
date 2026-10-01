@@ -1,0 +1,14 @@
+{
+  "name": "showreel-tools",
+  "version": "1.0.0",
+  "description": "쇼릴 렌더링 도구: headless Chrome으로 프레임을 뽑고 ffmpeg로 MP4를 만든다",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "postinstall": "node -e \"require('fs').existsSync(require('ffmpeg-static'))||require('child_process').execSync('node node_modules/ffmpeg-static/install.js',{stdio:'inherit'})\""
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.3.0",
+    "puppeteer-core": "^23.11.1"
+  }
+}
