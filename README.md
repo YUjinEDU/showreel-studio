@@ -4,6 +4,10 @@
 
 > *A Claude Code plugin that turns research reports into Korean motion-graphics presentation videos (storyboard → approval → canvas animation → layout audit & review → MP4 + web player with presenter mode).*
 
+![Showreel Studio 데모: 이 플러그인이 어떻게 돌아가는지 보여 주는 30초 쇼릴](docs/demo.gif)
+
+위 데모는 이 플러그인으로 만든 34.6초 쇼릴입니다. 소리가 있는 원본은 [docs/demo.mp4](docs/demo.mp4)이고, 코드 전체는 [example-showreel-reel.js](skills/reel-build/references/example-showreel-reel.js)에 있습니다.
+
 ## 무엇을 만드나
 
 | 결과물 | 설명 |
@@ -99,11 +103,11 @@ reports/{date}_{topic}-showreel.mp4   최종 영상과 대본
 - **Windows에서 검증**했습니다. 렌더러는 macOS/Linux의 Chrome 경로도 찾지만 아직 시험하지 않았습니다.
 - **웹 게시**는 claude.ai Artifact 도구가 있을 때만 자동으로 합니다. 없으면 `npx http-server showreel/reels/{slug}`로 로컬에서 재생합니다(음악을 fetch로 읽어서 파일을 직접 열면 소리가 나지 않습니다).
 - 음악은 코드로 합성합니다. 음량은 측정하지만 듣기 좋은지는 사람이 확인해야 합니다.
-- 완성 예제 `skills/reel-build/references/example-showreel-reel.js`와 데모 영상(이 플러그인의 작동 방식을 소개하는 30초 쇼릴)은 준비 중입니다.
+- 완성 예제 `skills/reel-build/references/example-showreel-reel.js`는 맨 위 데모 영상의 코드입니다. 테마 → 소재 함수 → 장면 → 장면 표 → 효과음 큐 → 음악 순서로 읽을 수 있게 주석을 달았습니다. 구현 에이전트가 처음 구현할 때 이 파일을 참고합니다.
 
 ## 만든 과정
 
-한 대학 수업 프로젝트에서 조사 결과를 발표하려고 만들었고, 같은 프로젝트에서 영상 6편(30초, 2분, 3분, 5분)을 만들면서 다듬었습니다. 검토자가 지적한 문제(자막 읽기 시간, 음량, 출처 표기)는 스킬 규칙과 엔진 기능으로 되돌려 넣었습니다.
+한 대학 수업 프로젝트에서 조사 결과를 발표하려고 만들었고, 같은 프로젝트에서 영상 6편(30초, 2분, 3분, 5분)을 만들면서 다듬었습니다. 맨 위 데모는 공개용으로 따로 만든 일곱 번째 영상입니다. 검토자가 지적한 문제(자막 읽기 시간, 음량, 출처 표기)는 스킬 규칙과 엔진 기능으로 되돌려 넣었습니다.
 
 ## 라이선스
 

@@ -4,3 +4,4 @@ reports/
 *.mp4
 *.wav
 .DS_Store
+!docs/demo.mp4
